@@ -8,23 +8,23 @@ output:
       collapsed: TRUE
       smooth_scroll: FALSE
 ---
-# Question 1
+# Question01
 
 Experiment with as many variance reduction techniques as you can think of to apply the problem of evaluating $P(X>1)$ for $X \sim Cauchy$.
 
-# Question 2
+# Question02
 
 Hammersley and Handscomb (1964) used the integration of $\theta = \int_{0}^{1} \frac{e^x-1}{e-1}dx$ on $(0,1)$ as a test problem of variance reduction techniques (which is about 0.4180233). Achieve as large a variance reduction as you can. (They achieved 4 million.)
 
-# Question 3
+# Question03
 
 Let $X_i,i=1,2,3,4,5$ be independent exponential random variables each with mean 1, and consider the quantity $\theta$ defined by $\theta = P(\sum_{i=1}^{5}iX_i\geq 21.6)$.Propose at least three simulation methods to estimate $\theta$ and compare their variances.
 
-# Question 4
+# Question04
 
 First, simulate 100 observations from $Beta(2,3)$ and then use 3 density estimating methods to smooth the observations. You need to specify the parameters in the smoothing methods, and compare the results.
 
-# Question 5
+# Question05
 
 Let $x$ be 100 equally spaced points on $[0,2π]$ and let $y_i=sunx_i+\epsilon_i$ with $\epsilon_i\sim N(0,0.09)$.Apply at least 3 linear smoothers and compare the differences, with respect to mean squares error (i.e., $bias^2$ and variance) from 1,000 simulation runs.
 

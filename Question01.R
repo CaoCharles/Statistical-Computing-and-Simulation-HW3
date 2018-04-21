@@ -57,8 +57,8 @@ for(i in 1:1000){
   x <- 1/U
   theta.hat[i] <- mean(hes(x))
 }
-Im.mean <- mean(theta.hat)
-Im.var <- var(theta.hat)
+Is.mean <- mean(theta.hat)
+Is.var <- var(theta.hat)
 
 # (3) ---------------------------------------------------------------------
 N = 1000
@@ -74,3 +74,4 @@ three_var <- var(theta.hat)
 
 # Control variate ---------------------------------------------------------
 # ???
+

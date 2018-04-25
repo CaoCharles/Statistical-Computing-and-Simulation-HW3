@@ -36,14 +36,15 @@ Hm.mean <- mean(theta.hat)
 Hm.var <- var(theta.hat)
 
 # Antithetic Variate ------------------------------------------------------
-
-N = 1000
+# 對偶變量
+N = 500
+theta.hat = NULL
 for( i in 1:1000){
 x <- runif(N)
 y <- 1 - x
 temp1 <- cauchy(x)
 temp2 <- cauchy(y)
-theta.hat[i] <-0.5 - 0.5*(mean(temp1)+mean(temp2))}
+theta.hat[i] <- 0.5 - 0.5*(mean(temp1) + mean(temp2))}
 AV.mean <- mean(theta.hat)
 AV.var <- var(theta.hat)
 

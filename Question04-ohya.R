@@ -8,6 +8,7 @@
 set.seed(20)
 m = 100
 x = rbeta(m,2,3)
+# 畫個
 stripchart(x,pch=16,cex=0.5,col=3,main="Dotplot")
 y = seq(0,1,length=100)
 hist(x,breaks = 5,probability = T,ylim = c(0,3))
@@ -103,53 +104,23 @@ y2 <- naiveest(xx,0.1)
 y3 <- kernel_norm(xx,0.1)
 data <- cbind(xx,yy,y2,y3) %>% as.data.frame()
 
-colnames(data) <- c("sample","hist","naive","kernal")
+colnames(data) <- c("sample","Beta(2,3)","naive","kernal")
+LBJ <- gather(data,key = "type",value = "value",2:4)
+LBJ$type %<>% as.factor()
 library(tidyverse)
 ggplot(data = data,aes(x=sample))+
-  geom_histogram(mapping = aes(y=..density..),color="white",fill="gray")+
-  geom_line(mapping = aes(y=hist),color="green",size=1)+
-  geom_line(mapping = aes(y=naive),color="gray",size=1.5,linetype=4)+
-  geom_line(mapping = aes(y=kernal),color="blue",size=1.5,linetype=2)
- 
+  geom_histogram(mapping = aes(y=..density..),fill="gray")+
+  geom_line(mapping = aes(y=hist),color="#FFFF00",size=1)+
+  geom_line(mapping = aes(y=naive),color="#FF00FF",size=1,linetype=1.5)+
+  geom_line(mapping = aes(y=kernal),color="#00FFFF",size=1,linetype=1.5)+ 
+  scale_x_continuous(breaks=seq(0,1,0.1))+
+  theme_set(theme_bw())+
+  theme(panel.grid =element_blank())+
+  theme(panel.grid.major=element_line(colour=NA))+
+  theme(legend.position = c(1,1))
 
-#question05
-
-x <- runif(1000,0,1*pi)
-e <- rnorm(1000,0,0.9)
-data <- sin(x)+e
-data
-naiveest(data,0.1)
-# naive density estimator
-naiveest=function(x,h){
-  w=function(y){
-    if (abs(y)<1) {return(1/2)}
-    else {return(0)}}
-  n=length(x)
-  sx=seq(min(x),max(x),length=1000)
-  t1=NULL
-  for (i in sx){
-    t0=NULL
-    for (j in x){
-      wei=w((i-j)/h)
-      t0=c(t0,wei)}
-    y=1/n*sum(1/h*t0)
-    t1=c(t1,y)}
-  return(t1)}
-
-# kernel density estimator
-# norm
-kernel_norm=function(x,h){
-  w=function(y){ dnorm(y) }
-  n=length(x)
-  sx=seq(min(x),max(x),length=1000)
-  t1=NULL
-  for (i in sx){
-    t0=NULL
-    for (j in x){
-      wei=w((i-j)/h)
-      t0=c(t0,wei)}
-    y=1/n*sum(1/h*t0)
-    t1=c(t1,y)}
-  return(t1)}
-
-ya <- naiveest(sort(data),0.1)
+ggplot(data = LBJ)+
+  geom_histogram(mapping = aes(x=sample,y=..density..),color="white")+
+  geom_line(mapping = aes(x=sample,y=value,color=type,group=type),size=1.2)+
+  theme(legend.title = element_text(colour="royalblue", size=20, face="bold"),legend.text = element_text(size = 16, face = "bold"),legend.position = c(0.8,0.8))+
+  theme(panel.grid =element_blank())

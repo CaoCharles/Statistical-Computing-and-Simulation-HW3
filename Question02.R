@@ -9,8 +9,13 @@ N = 1000
 # Monte-Carlo Integration -------------------------------------------------
 
 theta.hat = NULL
+<<<<<<< HEAD
 for(i in 1:N){
 x <- runif(N)
+=======
+for(i in 1:100){
+x <- runif(10000)
+>>>>>>> c66219c34e51a361f9ed756f0bb4e9d5b6236d13
 theta.hat[i] <- mean(Q2(x))}
 Mc.mean <- mean(theta.hat)
 Mc.var <-var(theta.hat)
@@ -18,14 +23,24 @@ Mc.var <-var(theta.hat)
 # Antithetic Variate ------------------------------------------------------
 
 theta.hat = NULL
+<<<<<<< HEAD
 for(i in 1:N){
 x <- runif(N/2)
 y <- 1 - x
+=======
+for(i in 1:100){
+x <- runif(10000)
+y <- 1-x
+>>>>>>> c66219c34e51a361f9ed756f0bb4e9d5b6236d13
 temp1 <- mean(Q2(x))
 temp2 <- mean(Q2(y))
 theta.hat[i] <- 0.5*(temp1+temp2)}
 AV.mean <- mean(theta.hat)
 AV.var <- var(theta.hat)
+<<<<<<< HEAD
+=======
+AV2.var <- 0.5*(var(temp1))(1 + cor(x,y))
+>>>>>>> c66219c34e51a361f9ed756f0bb4e9d5b6236d13
 
 # Importance Sampling -----------------------------------------------------
 

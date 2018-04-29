@@ -59,6 +59,7 @@ Hm3.mean <- mean(theta.hat)
 Hm3.var <- var(theta.hat)
 
 # Antithetic Variate ------------------------------------------------------
+<<<<<<< HEAD
 
 N <- 1000
 AD = NULL
@@ -71,6 +72,19 @@ for( i in 1:1000){
   AV.mean <- mean(theta.hat)
   AV.var <- var(theta.hat)
 
+=======
+# 對偶變量
+N = 500
+theta.hat = NULL
+for( i in 1:1000){
+x <- runif(N)
+y <- 1 - x
+temp1 <- cauchy(x)
+temp2 <- cauchy(y)
+theta.hat[i] <- 0.5 - 0.5*(mean(temp1) + mean(temp2))}
+AV.mean <- mean(theta.hat)
+AV.var <- var(theta.hat)
+>>>>>>> c66219c34e51a361f9ed756f0bb4e9d5b6236d13
 
 # Importance Sampling -----------------------------------------------------
 

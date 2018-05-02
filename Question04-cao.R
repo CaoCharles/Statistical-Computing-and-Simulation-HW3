@@ -3,7 +3,7 @@
 # 這是不想用套件的人寫的code~
 
 set.seed(106354012)
-x <- rbeta(10000,2,3)
+x <- rbeta(100,2,3)
 h=0.1
 
 # histogram density estimator (直方圖)
@@ -35,7 +35,7 @@ naive =function(x,h){
     if (abs(y)<1) {return(1/2)}
     else {return(0)}}               # 寫出公式裡的函數w
   n = length(x)
-  seq = seq(min(x),max(x),length=100)        
+  seq = seq(min(x),max(x),length=length(x))        
   y_hat = NULL
   for (i in seq){
     W=NULL
@@ -51,7 +51,7 @@ naive =function(x,h){
 kernel_norm=function(x,h){
   w=function(y){dnorm(y)}           # 核密度函數(常態)
   n = length(x)
-  seq = seq(min(x),max(x),length=100)
+  seq = seq(min(x),max(x),length=length(x))
   y_hat = NULL
   for (i in seq){
     W=NULL
@@ -66,7 +66,7 @@ kernel_norm=function(x,h){
 kernel_gamma=function(x,h){
   w=function(y){dgamma(y,shape = 1)}           # 核密度函數(Gamma)
   n = length(x)
-  seq = seq(min(x),max(x),length=100)
+  seq = seq(min(x),max(x),length=length(x))
   y_hat = NULL
   for (i in seq){
     W=NULL
@@ -97,12 +97,16 @@ LBJ$LineType %<>% as.factor()
 library(ggplot2)
 ggplot(data = LBJ) + labs(title = "Density Estimation (h=0.1)")+
   xlim(0,1)+ ylim(0,2.5) +
-  geom_histogram(mapping = aes(x=sample,y=..density..),color="white",fill="#CCCCCC",binwidth = 0.1)+
+  geom_histogram(mapping = aes(x=sample,y=..density..),color="black",fill="gray",binwidth = 0.1)+
   geom_line(mapping = aes(x=sample,y=value,color=LineType,group=LineType),size=1.2)+
   theme(legend.title = element_text(colour="royalblue", size=20, face="bold"))+
   theme(legend.text = element_text(size = 16))+
-  theme(legend.position = c(0.8,0.8))+
-  theme(legend.background = element_rect(size=0.5, linetype="solid",colour ="darkblue"))
+  theme(legend.position = c(0.87,0.6))+
+  theme(legend.background = element_rect(fill="#FFFFF0",size=1, linetype="solid",colour ="darkblue"))+
+  theme(panel.grid.major = element_blank())+
+  theme(panel.grid.minor = element_blank())+
+  theme(panel.background = element_rect(fill="#EEFFFF",colour="black",size = 2))
+
 # 畫圖囉 (h=0.2)
 xx <- sort(x)
 yy <- dbeta(xx,2,3)
@@ -118,9 +122,12 @@ LBJ$LineType %<>% as.factor()
 library(ggplot2)
 ggplot(data = LBJ) + labs(title = "Density Estimation (h=0.2)")+
   xlim(0,1)+ ylim(0,2.5) +
-  geom_histogram(mapping = aes(x=sample,y=..density..),color="white",fill="#CCCCCC",binwidth = 0.1)+
+  geom_histogram(mapping = aes(x=sample,y=..density..),color="black",fill="gray",binwidth = 0.2)+
   geom_line(mapping = aes(x=sample,y=value,color=LineType,group=LineType),size=1.2)+
   theme(legend.title = element_text(colour="royalblue", size=20, face="bold"))+
   theme(legend.text = element_text(size = 16))+
-  theme(legend.position = c(0.8,0.8))+
-  theme(legend.background = element_rect(size=0.5, linetype="solid",colour ="darkblue"))
+  theme(legend.position = c(0.87,0.6))+
+  theme(legend.background = element_rect(fill="#FFFFF0",size=1, linetype="solid",colour ="darkblue"))+
+  theme(panel.grid.major = element_blank())+
+  theme(panel.grid.minor = element_blank())+
+  theme(panel.background = element_rect(fill="#EEFEFF",colour="black",size = 2))

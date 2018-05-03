@@ -35,7 +35,11 @@ multiple_df <- overall %>%
   labs(title="Splines fit w / different degrees of freedom")+
   theme(legend.title=element_blank())+
   theme(legend.text = element_blank())+
-  theme(panel.background = element_rect(colour = "black"))
+  theme(panel.background = element_rect(colour = "black"))+
+  geom_vline(xintercept = 0,size=1)+
+  geom_hline(yintercept = 0,size=1)+
+  theme(panel.grid.major = element_line(NA),panel.grid.minor =element_line(NA))+
+  theme(panel.background = element_rect(color='#000000',size=2))
 
 multiple_df
 
@@ -59,13 +63,15 @@ data <- cbind(a,b,c,data) %>% as.data.frame()
 ggplot(data,aes(x=a))+ labs(title="Spline smoother of sin(x)") +
   geom_line(aes(y=c),col="gray",size=2)+
   geom_point(aes(y=b))+
+  geom_vline(xintercept = 0,size=1)+
+  geom_hline(yintercept = 0,size=1)+
   geom_line(mapping = aes(y=y,color=factor(round(df,0)),group=df),lwd=1.2)+
   scale_color_discrete("The number of nodes")+
   theme(legend.position = c(0.8,0.8))+
-  theme(legend.background = element_rect(fill="#DDFFFF",colour = "black"))+
+  theme(legend.background = element_rect(fill="#FFFFF0",colour = "black"))+
   theme(panel.grid.major = element_line(NA),panel.grid.minor =element_line(NA))+
-  theme(panel.background = element_rect(fill="#FFFFED",colour = "black"))
-  
+  theme(panel.background = element_rect(colour = "black",size=2))
+ 
 # 最後我們將各節點數分別計算MSE
 
 spline1$y

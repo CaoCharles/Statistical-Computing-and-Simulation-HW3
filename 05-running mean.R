@@ -1,6 +1,8 @@
 ##統模擬五
 require(plyr)
 library(dplyr)
+library(tidyverse)
+library(ggplot2)
 set.seed(106354012)
 
 a <- seq(0,2*pi, length=100)
@@ -58,8 +60,7 @@ ggplot(data2)+ labs(title = "Running mean of sin(x)")+
   theme(legend.text = element_text(size = 16))+
   theme(legend.position = c(0.8,0.8))+
   theme(legend.background = element_rect(size=0.5, linetype="solid",fill ="#FFFFF0",colour ="black"))+
-  theme(panel.background = element_rect(fill="#DDFFFF",size=2))+
-  theme(panel.border=element_rect(fill='transparent', color='#000000',size=2))
+  theme(panel.background = element_rect(color='#000000',size=2))
   
 # 1,000 simulation runs ( 設定k=2 )
 

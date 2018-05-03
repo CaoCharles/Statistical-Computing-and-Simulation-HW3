@@ -110,6 +110,7 @@ ggplot(data = LBJ) + labs(title = "Density Estimation (h=0.1)")+
 # 畫圖囉 (h=0.2)
 xx <- sort(x)
 yy <- dbeta(xx,2,3)
+y1 <- histogram(xx,0.2)
 y2 <- naive(xx,0.2)
 y3 <- kernel_norm(xx,0.2)
 y4 <- kernel_gamma(xx,0.2)
@@ -119,6 +120,7 @@ LBJ <- gather(data,key = "type",value = "value",2:5)
 colnames(LBJ) <- c("sample","LineType","value")  
 library(magrittr)
 LBJ$LineType %<>% as.factor()
+plot(sort(x),y1,typ="l",xlab="x",ylab="f(x)",xlim=c(0,1), ylim=c(0,3))
 library(ggplot2)
 ggplot(data = LBJ) + labs(title = "Density Estimation (h=0.2)")+
   xlim(0,1)+ ylim(0,2.5) +

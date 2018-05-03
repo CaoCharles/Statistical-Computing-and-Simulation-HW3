@@ -15,9 +15,12 @@ data <- lowess(x = a, y = b, f = 0.23) %>% as.data.frame()
 data <- cbind(b,c,data)%>% as.data.frame()
 ggplot(data,aes(x=x))+ labs(title="lowess smooth of sin(x) [h=0.1]",x="x",y="sin(x)")+
   geom_point(aes(y=b))+
+  geom_vline(xintercept = 0,size=1)+
+  geom_hline(yintercept = 0,size=1)+
   geom_line(aes(y=y),col="#00D0FF",lwd=1)+
   scale_x_continuous(breaks = c(0:2*pi))+
-  theme(panel.background = element_rect(fill="#EEEEEE",color = "black"))
+  theme(panel.background = element_rect(colour = "black",size=2))+
+  theme(panel.grid.major = element_line(NA),panel.grid.minor =element_line(NA))
 
 # MSE
 d <- c()

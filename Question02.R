@@ -1,21 +1,28 @@
 library(dplyr)
-options(scipen = 100)
+options(scipen = 999)
+set.seed(15) # 3 + 12
 # Question 2
 # define function
 Q2 <- function(x){
  y <- (exp(x)-1)/(exp(1)-1)
  return(y)}
+
+x = seq(0,1,by = 0.001)
+fx = Q2(x)
+data <- data.frame(x = x, fx = Q2(x))
+
+ggplot()+
+  geom_line(data = data,aes(x = x, y = fx))+
+  geom_vline(xintercept = 1,linetype = 2)+
+  geom_ribbon(data = data, aes(x = x,ymin = 0, ymax = fx), fill = "#00FF00",alpha = 0.7)+
+  labs(title = "Question 02")
+
 N = 1000
 # Monte-Carlo Integration -------------------------------------------------
 
 theta.hat = NULL
-<<<<<<< HEAD
 for(i in 1:N){
 x <- runif(N)
-=======
-for(i in 1:100){
-x <- runif(10000)
->>>>>>> c66219c34e51a361f9ed756f0bb4e9d5b6236d13
 theta.hat[i] <- mean(Q2(x))}
 Mc.mean <- mean(theta.hat)
 Mc.var <-var(theta.hat)
@@ -23,27 +30,17 @@ Mc.var <-var(theta.hat)
 # Antithetic Variate ------------------------------------------------------
 
 theta.hat = NULL
-<<<<<<< HEAD
 for(i in 1:N){
 x <- runif(N/2)
 y <- 1 - x
-=======
-for(i in 1:100){
-x <- runif(10000)
-y <- 1-x
->>>>>>> c66219c34e51a361f9ed756f0bb4e9d5b6236d13
 temp1 <- mean(Q2(x))
 temp2 <- mean(Q2(y))
 theta.hat[i] <- 0.5*(temp1+temp2)}
 AV.mean <- mean(theta.hat)
 AV.var <- var(theta.hat)
-<<<<<<< HEAD
-=======
-AV2.var <- 0.5*(var(temp1))(1 + cor(x,y))
->>>>>>> c66219c34e51a361f9ed756f0bb4e9d5b6236d13
 
 # Importance Sampling -----------------------------------------------------
-
+# 決定哪個好
 theta.hat1 = NULL
 theta.hat2 = NULL
 theta.hat3 = NULL
@@ -81,12 +78,13 @@ for( i in 1:N){
 
 mean11 <- c(mean(theta.hat1 ),mean(theta.hat2 ),mean(theta.hat3 ),mean(theta.hat4 ))
 var11 <- c(var(theta.hat1 ),var(theta.hat2 ),var(theta.hat3 ),var(theta.hat4))
-mean11
-var11
+Is.mean1 <- mean(theta.hat3 )
+Is.mean2 <- mean(theta.hat4)
+Is.var1 <- var(theta.hat3)
+Is.var2 <- var(theta.hat4)
 # Control variate ---------------------------------------------------------
-
 f <- function(x){
-  exp(x)-1}
+  x}
 theta.hat = NULL
 for( i in 1:N){
   u <- runif(10000)
@@ -95,12 +93,39 @@ for( i in 1:N){
   a <- -cov(A,B) / var(B)
   u <- runif(N)
   T1 <- Q2(u)
-  T2 <- T1 + a * (f(u) - exp(1)+2)
-  theta.hat <- mean(T2)
+  T2 <- T1 + a * (f(u) - 1/2)
+  theta.hat[i] <- mean(T2)
   }
-mean(theta.hat)
-var(theta.hat)
+Cv.mean <- mean(theta.hat)
+Cv.var <- var(theta.hat)
 
 # Stratified Sampling -----------------------------------------------------
+Q2 <- function(x){
+  y <- (exp(x)-1)/(exp(1)-1)
+  return(y)}
+N <- 1000
+SS = NULL
+for(i in 1:N){
+  x1 <- runif(N/5, 0, 0.2)
+  x2 <- runif(N/5, 0.2, 0.4)
+  x3 <- runif(N/5, 0.4, 0.6)
+  x4 <- runif(N/5, 0.6, 0.8)
+  x5 <- runif(N/5, 0.8, 1)
+  S1 <- mean(Q2(x1))
+  S2 <- mean(Q2(x2))
+  S3 <- mean(Q2(x3))
+  S4 <- mean(Q2(x4))
+  S5 <- mean(Q2(x5))
+  SS[i] <- mean(c(S1, S2, S3, S4, S5))
+}
+SS.mean <- mean(SS)
+SS.var <- var(SS)
+
+tmp1 <- c(Mc.mean, AV.mean, Is.mean1,Is.mean2, Cv.mean, SS.mean)
+tmp2 <- c(Mc.var, AV.var, Is.var1, Is.var2, Cv.var, SS.var)
+table <- rbind(tmp1, tmp2)
+rownames(table) <- c("Mean","Variance")
+colnames(table) <- c("Monte-Carlo", "Antithetic"," Importance", "Importance+Antithetic","Control", "Stratified(5)")
+table %>% round(., digits = 8)
 
 

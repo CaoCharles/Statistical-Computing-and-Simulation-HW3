@@ -253,7 +253,10 @@ ggplot(data,aes(x=x))+ labs(title="kernel smooth of sin(x) [h=0.1]",x="x",y="sin
   geom_line(aes(y=y),col="#00D0FF",lwd=1)+
   scale_x_continuous(breaks = c(0:2*pi))+
   theme(panel.grid.major = element_line(NA),panel.grid.minor =element_line(NA))+
-  theme(panel.background = element_rect(color = "black",size = 2))
+  theme(panel.background = element_rect(color = "black",size = 2))+
+  theme(plot.title = element_text(size = 30, face = "bold"))+
+  theme(legend.title=element_text(size=24))+
+  theme(legend.text=element_text(size=20))
 
 # MSE
 d <- c()
@@ -310,7 +313,10 @@ multiple_df <- overall %>%
   geom_vline(xintercept = 0,size=1)+
   geom_hline(yintercept = 0,size=1)+
   theme(panel.grid.major = element_line(NA),panel.grid.minor =element_line(NA))+
-  theme(panel.background = element_rect(color='#000000',size=2))
+  theme(panel.background = element_rect(color='#000000',size=2))+
+  theme(plot.title = element_text(size = 30, face = "bold"))+
+  theme(legend.title=element_text(size=24))+
+  theme(legend.text=element_text(size=20))
 
 multiple_df
 
@@ -341,7 +347,10 @@ ggplot(data,aes(x=a))+ labs(title="Spline smoother of sin(x)") +
   theme(legend.position = c(0.8,0.8))+
   theme(legend.background = element_rect(fill="#FFFFF0",colour = "black"))+
   theme(panel.grid.major = element_line(NA),panel.grid.minor =element_line(NA))+
-  theme(panel.background = element_rect(colour = "black",size=2))
+  theme(panel.background = element_rect(colour = "black",size=2))+
+  theme(plot.title = element_text(size = 30, face = "bold"))+
+  theme(legend.title=element_text(size=24))+
+  theme(legend.text=element_text(size=20))
  
 # 最後我們將各節點數分別計算MSE
 
@@ -443,7 +452,10 @@ ggplot(data,aes(x=x))+ labs(title="lowess smooth of sin(x) [h=0.1]",x="x",y="sin
   geom_line(aes(y=y),col="#00D0FF",lwd=1)+
   scale_x_continuous(breaks = c(0:2*pi))+
   theme(panel.background = element_rect(colour = "black",size=2))+
-  theme(panel.grid.major = element_line(NA),panel.grid.minor =element_line(NA))
+  theme(panel.grid.major = element_line(NA),panel.grid.minor =element_line(NA))+
+  theme(plot.title = element_text(size = 30, face = "bold"))+
+  theme(legend.title=element_text(size=24))+
+  theme(legend.text=element_text(size=20))
 
 # MSE
 d <- c()
@@ -464,25 +476,13 @@ MSE <- sum(bias^2)+sum(var) ; MSE
 
 ## Running mean smooth
 ```{r}
-# Running mean smooth
-set.seed(106354012)
-
-a <- seq(0,2*pi, length=100)
-b <- sin(seq(0,2*pi, length=100)) + rnorm(100,0,0.09)
-c <- sin(seq(0,2*pi, length=100))
-
-data <- cbind(a,b,c) %>% as.data.frame()
-ggplot(data)+
-  geom_line(mapping = aes(x=a,y=b,col="#FF0000"))+
-  geom_line(mapping = aes(x=a,y=c,col="#00FF00"))+
-  scale_x_continuous(breaks = c(0:2*pi))
-
 # running mean
-
 set.seed(106354012)
+
 a <- seq(0,2*pi, length=100)
 b <- sin(seq(0,2*pi, length=100)) + rnorm(100,0,0.09)
 c <- sin(seq(0,2*pi, length=100))
+
 mse = NULL
 for (k in 1:20){
 r <- running_mean(b, binwidth=k)
@@ -507,6 +507,7 @@ lines(fitted.values(model))  # 模擬出來的資料線段
 lines(c)                     # 真實的線段
 data <- cbind(a[1:length(b)],b,c[1:length(b)])%>%as.data.frame()
 colnames(data) <- c("x","running mean","sin(x)")
+library(magrittr)
 data2 <- gather(data,key = "type",value = "value",2:3)
 data2$type %<>% as.factor()
 ggplot(data2)+ labs(title = "Running mean of sin(x)")+
@@ -519,7 +520,10 @@ ggplot(data2)+ labs(title = "Running mean of sin(x)")+
   theme(legend.text = element_text(size = 16))+
   theme(legend.position = c(0.8,0.8))+
   theme(legend.background = element_rect(size=0.5, linetype="solid",fill ="#FFFFF0",colour ="black"))+
-  theme(panel.background = element_rect(color='#000000',size=2))
+  theme(panel.background = element_rect(color='#000000',size=2))+
+  theme(plot.title = element_text(size = 30, face = "bold"))+
+  theme(legend.title=element_text(size=24))+
+  theme(legend.text=element_text(size=20))
   
 # 1,000 simulation runs ( 設定k=2 )
 

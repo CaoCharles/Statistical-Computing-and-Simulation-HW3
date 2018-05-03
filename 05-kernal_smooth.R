@@ -19,7 +19,10 @@ ggplot(data,aes(x=x))+ labs(title="kernel smooth of sin(x) [h=0.1]",x="x",y="sin
   geom_line(aes(y=y),col="#00D0FF",lwd=1)+
   scale_x_continuous(breaks = c(0:2*pi))+
   theme(panel.grid.major = element_line(NA),panel.grid.minor =element_line(NA))+
-  theme(panel.background = element_rect(color = "black",size = 2))
+  theme(panel.background = element_rect(color = "black",size = 2))+
+  theme(plot.title = element_text(size = 30, face = "bold"))+
+  theme(legend.title=element_text(size=24))+
+  theme(legend.text=element_text(size=20))
 
 # MSE
 d <- c()

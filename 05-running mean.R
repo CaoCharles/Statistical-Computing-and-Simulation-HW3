@@ -3,26 +3,15 @@ require(plyr)
 library(dplyr)
 library(tidyverse)
 library(ggplot2)
-set.seed(106354012)
-
-a <- seq(0,2*pi, length=100)
-b <- sin(seq(0,2*pi, length=100)) + rnorm(100,0,0.09)
-c <- sin(seq(0,2*pi, length=100))
-
-data <- cbind(a,b,c) %>% as.data.frame()
-ggplot(data)+
-  geom_line(mapping = aes(x=a,y=b,col="#FF0000"))+
-  geom_line(mapping = aes(x=a,y=c,col="#00FF00"))+
-  scale_x_continuous(breaks = c(0:2*pi))
-
-# running mean
-
 library(igraph)
 
+# running mean
 set.seed(106354012)
+
 a <- seq(0,2*pi, length=100)
 b <- sin(seq(0,2*pi, length=100)) + rnorm(100,0,0.09)
 c <- sin(seq(0,2*pi, length=100))
+
 mse = NULL
 for (k in 1:20){
 r <- running_mean(b, binwidth=k)
@@ -60,7 +49,10 @@ ggplot(data2)+ labs(title = "Running mean of sin(x)")+
   theme(legend.text = element_text(size = 16))+
   theme(legend.position = c(0.8,0.8))+
   theme(legend.background = element_rect(size=0.5, linetype="solid",fill ="#FFFFF0",colour ="black"))+
-  theme(panel.background = element_rect(color='#000000',size=2))
+  theme(panel.background = element_rect(color='#000000',size=2))+
+  theme(plot.title = element_text(size = 30, face = "bold"))+
+  theme(legend.title=element_text(size=24))+
+  theme(legend.text=element_text(size=20))
   
 # 1,000 simulation runs ( 設定k=2 )
 

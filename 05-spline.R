@@ -39,7 +39,8 @@ multiple_df <- overall %>%
   geom_vline(xintercept = 0,size=1)+
   geom_hline(yintercept = 0,size=1)+
   theme(panel.grid.major = element_line(NA),panel.grid.minor =element_line(NA))+
-  theme(panel.background = element_rect(color='#000000',size=2))
+  theme(panel.background = element_rect(color='#000000',size=2))+
+  theme(plot.title = element_text(size = 30, face = "bold"))
 
 multiple_df
 
@@ -67,6 +68,10 @@ ggplot(data,aes(x=a))+ labs(title="Spline smoother of sin(x)") +
   geom_hline(yintercept = 0,size=1)+
   geom_line(mapping = aes(y=y,color=factor(round(df,0)),group=df),lwd=1.2)+
   scale_color_discrete("The number of nodes")+
+  theme(legend.key.size = unit(1.5, "line"))+
+  theme(plot.title = element_text(size = 30, face = "bold"))+
+  theme(legend.title=element_text(size=24))+
+  theme(legend.text=element_text(size=20))+
   theme(legend.position = c(0.8,0.8))+
   theme(legend.background = element_rect(fill="#FFFFF0",colour = "black"))+
   theme(panel.grid.major = element_line(NA),panel.grid.minor =element_line(NA))+
